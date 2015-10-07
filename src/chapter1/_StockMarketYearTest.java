@@ -44,17 +44,23 @@ public class _StockMarketYearTest {
 	    	assertEquals("starting principal", 3000, year.startingPrincipal());
 	    	year.withdraw(4000);
 	    	assertEquals("ending principal after withdraw(4000)", 0, year.endingingPrincipal());
+	    	year.withdraw(2000);
+	    	assertEquals("capital gains tax",1000, year.capitalGainsTaxIncurred(25));
+	    	assertEquals("total withdrawn", 7000, year.totalWithdrawn(25));
+	    	assertEquals("interest earned", 300, year.interestEarned(25));
 	    }
 	    
 	    @Test
-	    public void capitalGainsTaxesDoNotEarnInterest() {
+	    public void capitalGainsTaxesDoNotEarnInterest2() {
 	    	StockMarketYear year = new StockMarketYear(10000, 0, 10);
 	    	year.withdraw(1000);
-	    	assertEquals("capital gains withdrawn", 1000, year.capitalGainsWithdrawn());
-	    	assertEquals("capital gains tax", 333, year.capitalGainsTaxIncurred(25));
+	    	year.withdraw(2000);
+	    	assertEquals("capital gains withdrawn", 3000, year.capitalGainsWithdrawn());
+	    	assertEquals("endiing principal after total withdrawn(3000)", 0, year.endingingPrincipal());
+	    	assertEquals("capital gains tax", 1000, year.capitalGainsTaxIncurred(25));
 	   // 	assertEquals("total withdrawn",  1333, year.totalWithdrawnIncludingCapitalGains(25));
-	    	assertEquals("total withdrawn",  1333, year.totalWithdrawn(25));
-	    	assertEquals("interest earned",866, year.interestEarned(25));
+	    	assertEquals("total withdrawn",  4000, year.totalWithdrawn(25));
+	    	assertEquals("interest earned",600, year.interestEarned(25));
 	    }
 	    
 	    @Test
